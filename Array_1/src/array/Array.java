@@ -6,7 +6,6 @@ import static array.Traps.*;
 import java.util.Random;
 import java.util.Scanner;
 
-
 public class Array {
 
     public static String choose;
@@ -16,6 +15,8 @@ public class Array {
     public static int shopcount = -1;
     public static boolean djump = false;
     public static boolean noenemy = false;
+    public static boolean nebuy = false;
+    public static boolean djbuy = false;
     public static int num = -2;
     public static boolean scorebool = false;
     //Inventory Related
@@ -28,7 +29,7 @@ public class Array {
     public static int cointotal;
     public static int coinX = rand.nextInt(max - min + 1) + min;
     public static int coinY = rand.nextInt(max - min + 1) + min;
-    
+
     public static Player player;
     public static Enemy enemy;
     public static Traps traps;
@@ -37,6 +38,7 @@ public class Array {
     public static void main(String[] args) throws InterruptedException {
         story();
     }
+
     public static void story() throws InterruptedException {
         player = new Player(9, 9);
         enemy = new Enemy(enemy.enemyX, enemy.enemyY, enemy.enemyX2, enemy.enemyY2);
@@ -50,7 +52,7 @@ public class Array {
         System.out.println("To buy powerups, collect coins in game! Your coin total is currently: " + cointotal + ".");
         System.out.println("Type /shop to buy a powerup or /play to start the game!");
         start = input.nextLine();
-        if(start.equalsIgnoreCase("/shop")) {
+        if (start.equalsIgnoreCase("/shop")) {
             shop();
         }
         X();
@@ -59,7 +61,7 @@ public class Array {
         map();
         Movement();
     }
-    
+
     public static void map() throws InterruptedException {
         char[][] map = new char[20][20];
         map[player.InputY - 1][player.InputX - 1] = '@'; //map[InputX-1][InputY-1] = 'x';
@@ -97,20 +99,18 @@ public class Array {
                     } else {
                         System.out.print(" " + map[i][j] + " ");
                     }
+                } else if (i == 0) {
+                    System.out.println("");
+                } else if (i == 19) {
+                    System.out.println("");
+                } else if (j == 0) {
+                    System.out.println("▐");
+                } else if (j == 19) {
+                    System.out.println("▐");
+                } else if (map[i][j] != '@' && map[i][j] != '*' && map[i][j] != 'E' && map[i][j] != 'T' && map[i][j] != '◎') { //map[i][j] != 'x'
+                    System.out.println(" • ");
                 } else {
-                    if (i == 0) {
-                        System.out.println("");
-                    } else if (i == 19) {
-                        System.out.println("");
-                    } else if (j == 0) {
-                        System.out.println("▐");
-                    } else if (j == 19) {
-                        System.out.println("▐");
-                    } else if (map[i][j] != '@' && map[i][j] != '*' && map[i][j] != 'E' && map[i][j] != 'T' && map[i][j] != '◎') { //map[i][j] != 'x'
-                        System.out.println(" • ");
-                    } else {
-                        System.out.println(" " + map[i][j] + " ");
-                    }
+                    System.out.println(" " + map[i][j] + " ");
                 }
             }
         }
@@ -143,7 +143,7 @@ public class Array {
         Scanner Move = new Scanner(System.in);
         System.out.println("\nCoin count: " + cointotal + ".\n");
         System.out.println("Do you want to go North[N], South[S], East[E], West[W]\nNortheast[NE], Southeast[SE], Northwest[NW], or Southwest[SW]?");
-        player.move = Move.nextLine().toLowerCase(); 
+        player.move = Move.nextLine().toLowerCase();
         if (player.move.contains("n") && player.move.contains("e")) {
             player.InputY--;
             player.InputX++;
@@ -178,8 +178,8 @@ public class Array {
             if (enemy.enemyY2 > 1 && enemy.enemyY2 < 3) {
                 enemy.enemyY2 = 20;
             }
-            
-            if(djump == true && !player.move.contains("1")) {
+
+            if (djump == true && !player.move.contains("1")) {
                 player.InputY--;
             }
             player.InputY--;
@@ -194,10 +194,10 @@ public class Array {
             if (enemy.enemyY2 > 18 && enemy.enemyY2 < 20) {
                 enemy.enemyY2 = 2;
             }
-            if(djump == true && !player.move.contains("1")) {
+            if (djump == true && !player.move.contains("1")) {
                 player.InputY++;
             }
-            
+
             player.InputY++;
             enemy();
         } else if (player.move.contains("e")) {
@@ -210,7 +210,7 @@ public class Array {
             if (enemy.enemyX2 > 18 && enemy.enemyX2 < 20) {
                 enemy.enemyX2 = 2;
             }
-            if(djump == true && !player.move.contains("1")) {
+            if (djump == true && !player.move.contains("1")) {
                 player.InputX++;
             }
             player.InputX++;
@@ -225,7 +225,7 @@ public class Array {
             if (enemy.enemyX2 > 1 && enemy.enemyX2 < 3) {
                 enemy.enemyX2 = 19;
             }
-            if(djump == true && !player.move.contains("1")) {
+            if (djump == true && !player.move.contains("1")) {
                 player.InputX--;
             }
             player.InputX--;
@@ -240,12 +240,12 @@ public class Array {
     public static void enemy() throws InterruptedException {
         System.out.println("Your location is: " + (player.InputX) + ", " + (player.InputY) + ".");
         //System.out.println("The first enemy's location is: " + (enemy.enemyX) + ", " + (enemy.enemyY) + " and second's is: " + (enemy.enemyX2) + ", " + (enemy.enemyY2) + ".");
-        
-        if(player.score == 3) {
+
+        if (player.score == 3) {
             scorebool = true;
         }
-        
-        if(noenemy == true) {
+
+        if (noenemy == true) {
             enemyX = 2;
             enemyY = 2;
             enemyX2 = 2;
@@ -253,8 +253,8 @@ public class Array {
             e2 = false;
             e1 = false;
         }
-        
-        if(scorebool == true && noenemy == false) {
+
+        if (scorebool == true && noenemy == false) {
             enemyX = rand.nextInt(max - min + 1) + min;
             enemyY = rand.nextInt(max - min + 1) + min;
             enemyX2 = rand.nextInt(max - min + 1) + min;
@@ -262,7 +262,7 @@ public class Array {
             e1 = true;
             e2 = true;
         }
-        if(scorebool == true) {
+        if (scorebool == true) {
             treasureX = rand.nextInt(max - min + 1) + min;
             treasureY = rand.nextInt(max - min + 1) + min;
             treasureX2 = rand.nextInt(max - min + 1) + min;
@@ -270,206 +270,191 @@ public class Array {
             treasureX3 = rand.nextInt(max - min + 1) + min;
             treasureY3 = rand.nextInt(max - min + 1) + min;
         }
-        if(scorebool == true) {
+        if (scorebool == true) {
             trapY = rand.nextInt(max - min + 1) + min;
-            trapX = rand.nextInt(max - min + 1) + min; 
-            trapYone = rand.nextInt(max - min + 1) + min; 
-            trapXone = rand.nextInt(max - min + 1) + min; 
-            trapYtwo = rand.nextInt(max - min + 1) + min; 
-            trapXtwo = rand.nextInt(max - min + 1) + min; 
-            trapYthree = rand.nextInt(max - min + 1) + min; 
-            trapXthree = rand.nextInt(max - min + 1) + min; 
-            trapYfour = rand.nextInt(max - min + 1) + min; 
+            trapX = rand.nextInt(max - min + 1) + min;
+            trapYone = rand.nextInt(max - min + 1) + min;
+            trapXone = rand.nextInt(max - min + 1) + min;
+            trapYtwo = rand.nextInt(max - min + 1) + min;
+            trapXtwo = rand.nextInt(max - min + 1) + min;
+            trapYthree = rand.nextInt(max - min + 1) + min;
+            trapXthree = rand.nextInt(max - min + 1) + min;
+            trapYfour = rand.nextInt(max - min + 1) + min;
             trapXfour = rand.nextInt(max - min + 1) + min;
             trapYfive = rand.nextInt(max - min + 1) + min;
             trapXfive = rand.nextInt(max - min + 1) + min;
             trapYsix = rand.nextInt(max - min + 1) + min;
             trapXsix = rand.nextInt(max - min + 1) + min;
             trapYseven = rand.nextInt(max - min + 1) + min;
-            trapXseven = rand.nextInt(max - min + 1) + min; 
+            trapXseven = rand.nextInt(max - min + 1) + min;
             trapYeight = rand.nextInt(max - min + 1) + min;
             trapXeight = rand.nextInt(max - min + 1) + min;
             trapYnine = rand.nextInt(max - min + 1) + min;
             trapXnine = rand.nextInt(max - min + 1) + min;
         }
-            if(scorebool == true) {
+        if (scorebool == true) {
             coinX = rand.nextInt(max - min + 1) + min;
             coinY = rand.nextInt(max - min + 1) + min;
             coinvalue = rand.nextInt(maxcoin - mincoin + 1) + mincoin;
             scorebool = false;
         }
-        
-        if(player.health == 5) {
+
+        if (player.health == 5) {
             player.totalhealth = player.health5;
         }
-        if(player.health == 4) {
+        if (player.health == 4) {
             player.totalhealth = player.health4;
         }
-        if(player.health == 3) {
+        if (player.health == 3) {
             player.totalhealth = player.health3;
         }
-        if(player.health == 2) {
+        if (player.health == 2) {
             player.totalhealth = player.health2;
         }
-        if(player.health == 1) {
+        if (player.health == 1) {
             player.totalhealth = player.health1;
         }
-        if(player.health == 0) {
+        if (player.health == 0) {
             lost();
             lose = 0;
-            
+
         }
         System.out.println("Your health is currently: " + player.totalhealth + ".");
-        
+
         System.out.println("Your Score is: " + player.score);
         if (player.InputX == treasure.treasureX2 && player.InputY == treasure.treasureY2) {
             treasure.treasureX2 = 1;
             treasure.treasureY2 = 1;
             player.score++;
-        if (player.score == 3) {
-            System.out.println("");
-            scorebool = true;
-            System.out.println
-                     ("db    db  .d88b.  db    db    db   d8b   db d888888b d8b   db \n"
-                    + "`8b  d8' .8P  Y8. 88    88    88   I8I   88   `88'   888o  88 \n"
-                    + " `8bd8'  88    88 88    88    88   I8I   88    88    88V8o 88 \n"
-                    + "   88    88    88 88    88    Y8   I8I   88    88    88 V8o88 \n"
-                    + "   88    `8b  d8' 88b  d88    `8b d8'8b d8'   .88.   88  V888 \n"
-                    + "   YP     `Y88P'  ~Y8888P'     `8b8' `8d8'  Y888888P VP   V8P ");
-            lose = 10;
-            lost();
-        }
-        }
-        else if (player.InputX == treasure.treasureX && player.InputY == treasure.treasureY) {
+            if (player.score == 3) {
+                System.out.println("");
+                scorebool = true;
+                System.out.println("db    db  .d88b.  db    db    db   d8b   db d888888b d8b   db \n"
+                        + "`8b  d8' .8P  Y8. 88    88    88   I8I   88   `88'   888o  88 \n"
+                        + " `8bd8'  88    88 88    88    88   I8I   88    88    88V8o 88 \n"
+                        + "   88    88    88 88    88    Y8   I8I   88    88    88 V8o88 \n"
+                        + "   88    `8b  d8' 88b  d88    `8b d8'8b d8'   .88.   88  V888 \n"
+                        + "   YP     `Y88P'  ~Y8888P'     `8b8' `8d8'  Y888888P VP   V8P ");
+                lose = 10;
+                lost();
+            }
+        } else if (player.InputX == treasure.treasureX && player.InputY == treasure.treasureY) {
             treasure.treasureX = 1;
             treasure.treasureY = 1;
             player.score++;
-        if (player.score == 3) {
-            System.out.println("");
-            System.out.println
-                     ("db    db  .d88b.  db    db    db   d8b   db d888888b d8b   db \n"
-                    + "`8b  d8' .8P  Y8. 88    88    88   I8I   88   `88'   888o  88 \n"
-                    + " `8bd8'  88    88 88    88    88   I8I   88    88    88V8o 88 \n"
-                    + "   88    88    88 88    88    Y8   I8I   88    88    88 V8o88 \n"
-                    + "   88    `8b  d8' 88b  d88    `8b d8'8b d8'   .88.   88  V888 \n"
-                    + "   YP     `Y88P'  ~Y8888P'     `8b8' `8d8'  Y888888P VP   V8P ");
-            lose = 10;
-            lost();
-        }
-        }
-        else if (player.InputX == treasure.treasureX3 && player.InputY == treasure.treasureY3) {
+            if (player.score == 3) {
+                System.out.println("");
+                System.out.println("db    db  .d88b.  db    db    db   d8b   db d888888b d8b   db \n"
+                        + "`8b  d8' .8P  Y8. 88    88    88   I8I   88   `88'   888o  88 \n"
+                        + " `8bd8'  88    88 88    88    88   I8I   88    88    88V8o 88 \n"
+                        + "   88    88    88 88    88    Y8   I8I   88    88    88 V8o88 \n"
+                        + "   88    `8b  d8' 88b  d88    `8b d8'8b d8'   .88.   88  V888 \n"
+                        + "   YP     `Y88P'  ~Y8888P'     `8b8' `8d8'  Y888888P VP   V8P ");
+                lose = 10;
+                lost();
+            }
+        } else if (player.InputX == treasure.treasureX3 && player.InputY == treasure.treasureY3) {
             treasure.treasureX3 = 1;
             treasure.treasureY3 = 1;
             player.score++;
-        if (player.score == 3) {
-            System.out.println("");
-            System.out.println          
-                     ("db    db  .d88b.  db    db    db   d8b   db d888888b d8b   db \n"
-                    + "`8b  d8' .8P  Y8. 88    88    88   I8I   88   `88'   888o  88 \n"
-                    + " `8bd8'  88    88 88    88    88   I8I   88    88    88V8o 88 \n"
-                    + "   88    88    88 88    88    Y8   I8I   88    88    88 V8o88 \n"
-                    + "   88    `8b  d8' 88b  d88    `8b d8'8b d8'   .88.   88  V888 \n"
-                    + "   YP     `Y88P'  ~Y8888P'     `8b8' `8d8'  Y888888P VP   V8P ");
-            lose = 10;
-            lost();
+            if (player.score == 3) {
+                System.out.println("");
+                System.out.println("db    db  .d88b.  db    db    db   d8b   db d888888b d8b   db \n"
+                        + "`8b  d8' .8P  Y8. 88    88    88   I8I   88   `88'   888o  88 \n"
+                        + " `8bd8'  88    88 88    88    88   I8I   88    88    88V8o 88 \n"
+                        + "   88    88    88 88    88    Y8   I8I   88    88    88 V8o88 \n"
+                        + "   88    `8b  d8' 88b  d88    `8b d8'8b d8'   .88.   88  V888 \n"
+                        + "   YP     `Y88P'  ~Y8888P'     `8b8' `8d8'  Y888888P VP   V8P ");
+                lose = 10;
+                lost();
+            }
         }
-        }
-        
-        if (player.InputX == traps.trapX && player.InputY == traps.trapY){
+
+        if (player.InputX == traps.trapX && player.InputY == traps.trapY) {
             System.out.println("\nYou hit a trap! You lose a heart!");
             player.health--;
-            
-            
+
 //            lose = 0;
 //            lost();
             traps.trapX = 1;
-            traps.trapY = 1; 
-        }
-        else if (player.InputX == traps.trapXone && player.InputY == traps.trapYone) {
+            traps.trapY = 1;
+        } else if (player.InputX == traps.trapXone && player.InputY == traps.trapYone) {
             System.out.println("\nYou hit a trap! You lose a heart!");
             player.health--;
-            
+
 //            lose = 0;
 //            lost();
             traps.trapXone = 1;
-            traps.trapYone = 1; 
-        }
-        else if (player.InputX == traps.trapXtwo && player.InputY == traps.trapYtwo) {
+            traps.trapYone = 1;
+        } else if (player.InputX == traps.trapXtwo && player.InputY == traps.trapYtwo) {
             System.out.println("\nYou hit a trap! You lose a heart!");
             player.health--;
-            
+
 //            lose = 0;
 //            lost();
             traps.trapXtwo = 1;
-            traps.trapYtwo = 1; 
-        }
-        else if (player.InputX == traps.trapXthree && player.InputY == traps.trapYthree) {
+            traps.trapYtwo = 1;
+        } else if (player.InputX == traps.trapXthree && player.InputY == traps.trapYthree) {
             System.out.println("\nYou hit a trap! You lose a heart!");
             player.health--;
-            
+
 //            lose = 0;
 //            lost();
             traps.trapXthree = 1;
-            traps.trapYthree = 1; 
-        }
-        else if (player.InputX == traps.trapXfour && player.InputY == traps.trapYfour) {
+            traps.trapYthree = 1;
+        } else if (player.InputX == traps.trapXfour && player.InputY == traps.trapYfour) {
             System.out.println("\nYou hit a trap! You lose a heart!");
             player.health--;
-            
+
 //            lose = 0;
 //            lost();
             traps.trapXfour = 1;
-            traps.trapYfour = 1; 
-        }
-        else if (player.InputX == traps.trapXfive && player.InputY == traps.trapYfive) {
+            traps.trapYfour = 1;
+        } else if (player.InputX == traps.trapXfive && player.InputY == traps.trapYfive) {
             System.out.println("\nYou hit a trap! You lose a heart!");
             player.health--;
-            
+
 //            lose = 0;
 //            lost();
             traps.trapXfive = 1;
-            traps.trapYfive = 1; 
-        }
-        else if (player.InputX == traps.trapXsix && player.InputY == traps.trapYsix) {
+            traps.trapYfive = 1;
+        } else if (player.InputX == traps.trapXsix && player.InputY == traps.trapYsix) {
             System.out.println("\nYou hit a trap! You lose a heart");
             player.health--;
-            
+
 //            lose = 0;
 //            lost();
             traps.trapXsix = 1;
-            traps.trapYsix = 1; 
-        }
-        else if (player.InputX == traps.trapXseven && player.InputY == traps.trapYseven) {
+            traps.trapYsix = 1;
+        } else if (player.InputX == traps.trapXseven && player.InputY == traps.trapYseven) {
             System.out.println("\nYou hit a trap! You lose a heart");
             player.health--;
-            
+
 //            lose = 0;
 //            lost();
             traps.trapXseven = 1;
-            traps.trapYseven = 1; 
-        }
-        else if (player.InputX == traps.trapXeight && player.InputY == traps.trapYeight) {
+            traps.trapYseven = 1;
+        } else if (player.InputX == traps.trapXeight && player.InputY == traps.trapYeight) {
             System.out.println("\nYou hit a trap! You lose a heart!");
             player.health--;
-            
+
 //            lose = 0;
 //            lost();
             traps.trapXeight = 1;
-            traps.trapYeight = 1; 
-        }
-        else if (player.InputX == traps.trapXnine && player.InputY == traps.trapYnine) {
+            traps.trapYeight = 1;
+        } else if (player.InputX == traps.trapXnine && player.InputY == traps.trapYnine) {
             System.out.println("\nYou hit a trap! You lose a heart!");
             player.health--;
-            
+
 //            lose = 0;
 //            lost();
             traps.trapXnine = 1;
-            traps.trapYnine = 1; 
+            traps.trapYnine = 1;
         }
 
         if (player.InputX == enemy.enemyX && player.InputY == enemy.enemyY) {
             player.health--;
-            
+
             enemy.enemyX = 2;
             enemy.enemyY = 2;
             enemy.e1 = false;
@@ -477,9 +462,9 @@ public class Array {
             //lose = 0;
             //lost();
         }
-          if (player.InputX == enemy.enemyX2 && player.InputY == enemy.enemyY2) {
+        if (player.InputX == enemy.enemyX2 && player.InputY == enemy.enemyY2) {
             player.health--;
-            
+
             enemy.enemyX2 = 2;
             enemy.enemyY2 = 1;
             enemy.e2 = false;
@@ -487,102 +472,138 @@ public class Array {
             //lose = 0;
             //lost();
         }
-        
-        if(player.InputX > enemy.enemyX2 && enemy.e2 == true) {
+
+        if (player.InputX > enemy.enemyX2 && enemy.e2 == true) {
             enemy.enemyX2++;
         }
-        if(player.InputY > enemy.enemyX2 && enemy.e2 == true) {
+        if (player.InputY > enemy.enemyX2 && enemy.e2 == true) {
             enemy.enemyY2++;
         }
-        if(player.InputX < enemy.enemyX2 && enemy.e2 == true) {
+        if (player.InputX < enemy.enemyX2 && enemy.e2 == true) {
             enemy.enemyX2--;
         }
-        if(player.InputY < enemy.enemyY2 && enemy.e2 == true) {
+        if (player.InputY < enemy.enemyY2 && enemy.e2 == true) {
             enemy.enemyY2--;
         }
-        
-        if(player.InputX > enemy.enemyX && enemy.e1 == true) {
+
+        if (player.InputX > enemy.enemyX && enemy.e1 == true) {
             enemy.enemyX++;
         }
-        if(player.InputY > enemy.enemyX && enemy.e1 == true) {
+        if (player.InputY > enemy.enemyX && enemy.e1 == true) {
             enemy.enemyY++;
         }
-        if(player.InputX < enemy.enemyX && enemy.e1 == true) {
+        if (player.InputX < enemy.enemyX && enemy.e1 == true) {
             enemy.enemyX--;
         }
-        if(player.InputY < enemy.enemyY && enemy.e1 == true) {
+        if (player.InputY < enemy.enemyY && enemy.e1 == true) {
             enemy.enemyY--;
         }
-        
-        if(player.InputX == coinX && player.InputY == coinY) {
+
+        if (player.InputX == coinX && player.InputY == coinY) {
             coinX = 1;
             coinY = 1;
             coins();
         }
         map();
     }
-    
+
     public static void coins() throws InterruptedException {
-            cointotal += coinvalue;
-            System.out.println("\nYou gained " + coinvalue + " coins! Good Job!");
-            map();
-        }
+        cointotal += coinvalue;
+        System.out.println("\nYou gained " + coinvalue + " coins! Good Job!");
+        map();
+    }
+
     public static void shop() throws InterruptedException {
         shopcount = 1;
         Scanner buys = new Scanner(System.in);
-        if(num < 1) {
-        System.out.println("\nWelcome to the shop! Feel free to buy anything you need!");
-        System.out.println("[Items]:");
-        System.out.println("[No Enemies]: 300 Coins");
-        System.out.println("[Double Jump]: 500 Coins");
+        if (num < 1) {
+            System.out.println("\nWelcome to the shop! Feel free to buy anything you need!");
+            System.out.println("[Items]:");
+            System.out.print("[No Enemies]: 300 Coins");
+            if(nebuy == false) {
+                System.out.println("");
+            }
+            if(nebuy == true) {
+                System.out.println(" [Purchased]");
+            }
+            System.out.print("[Double Jump]: 500 Coins");
+            if(djbuy == false) {
+                System.out.println("");
+            }
+             if(djbuy == true) {
+                System.out.println(" [Purchased]");
+            }
+            System.out.println("[One Heart(Five Max)]: 200 coins");
         }
         System.out.println("Would you like to buy something?");
         buy = buys.nextLine().toLowerCase();
-        if(buy.contains("y")) {
+        if (buy.contains("y")) {
             System.out.println("What would you like to buy?");
             System.out.println("[Item Names]: ");
-            System.out.println("No Enemies = NE");
-            System.out.println("Double Jump = DJ");
-            buy = buys.nextLine();
-            if(buy.contains("NE")) {
-                if(cointotal >= 300) {
-                System.out.println("You have been charged 300 coins! Enjoy!");    
-                cointotal -= 300;
-                noenemy = true;
-                num = -1;
-                game();
-                }
-                else { 
+            System.out.print("No Enemies = NE");
+            if(nebuy == false) {
+                System.out.println("");
+            }
+            if(nebuy == true) {
+                System.out.println(" [Purchased]");
+            }
+            System.out.print("Double Jump = DJ");
+            if(djbuy == false) {
+                System.out.println("");
+            }
+            if(djbuy == true) {
+                System.out.println(" [Purchased]");
+            }
+            System.out.println("One Heart = HE");
+            buy = buys.nextLine().toUpperCase();
+            if (buy.contains("HE")) {
+                if (cointotal >= 200) {
+                    System.out.println("You have been charged 200 coins! Enjoy!");
+                    cointotal -= 200;
+                    player.health += 1;
+                    num = -1;
+                    game();
+                } else {
                     num = -1;
                     System.out.println("You cannot purchase this item! Returning to game!");
                     game();
                 }
-            }
-            if(buy.contains("DJ")) {
-                if(cointotal >= 500) {
-                System.out.println("You have been charged 500 coins! Enjoy!");    
-                cointotal -= 500;
-                djump = true;
-                num = -1;
-                game();
-                }
-                else {
+            } else if (buy.contains("NE")) {
+                if (cointotal >= 0) {
+                    nebuy = true;
+                    System.out.println("You have been charged 300 coins! Enjoy!");
+                    cointotal -= 00;
+                    nebuy = true;
+                    noenemy = true;
+                    num = -1;
+                    game();
+                } else {
                     num = -1;
                     System.out.println("You cannot purchase this item! Returning to game!");
                     game();
                 }
+            } else if (buy.contains("DJ")) {
+                if (cointotal >= 00) {
+                    System.out.println("You have been charged 500 coins! Enjoy!");
+                    djbuy = true;
+                    cointotal -= 00;
+                    djump = true;
+                    num = -1;
+                    game();
+                } else {
+                    num = -1;
+                    System.out.println("You cannot purchase this item! Returning to game!");
+                    game();
+                }
+            } else {
+                System.out.println("Input not parsed.");
+                num = 1;
+                shop();
             }
-            else {
-            System.out.println("Input not parsed.");
-            num = 1;
-            shop();
-        }
-        }
-        else {
+        } else {
             game();
         }
     }
-        
 
     public static void lost() throws InterruptedException {
         Scanner scan = new Scanner(System.in);
@@ -591,8 +612,7 @@ public class Array {
         if (lose < 1) {
             System.out.println("");
             cointotal -= 0;
-            System.out.println
-                     ("db    db  .d88b.  db    db    db       .d88b.  .d8888. d88888b \n"
+            System.out.println("db    db  .d88b.  db    db    db       .d88b.  .d8888. d88888b \n"
                     + "`8b  d8' .8P  Y8. 88    88    88      .8P  Y8. 88'  YP 88'     \n"
                     + " `8bd8'  88    88 88    88    88      88    88 `8bo.   88ooooo \n"
                     + "   88    88    88 88    88    88      88    88   `Y8b. 88~~~~~ \n"
