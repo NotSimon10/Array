@@ -17,7 +17,6 @@ public class Player {
     public Player(int a, int b) {
         this.InputX = a;
         this.InputY = b;
-        this.health = 5;
         this.score = 0;
     }
 

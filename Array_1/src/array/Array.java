@@ -18,7 +18,6 @@ public class Array {
     public static boolean noenemy = false;
     public static int num = -2;
     public static boolean scorebool = false;
-    public static int healthcheck;
     //Inventory Related
     public static final Random rand = new Random();
     public static int min = 2;
@@ -38,7 +37,6 @@ public class Array {
     public static void main(String[] args) throws InterruptedException {
         story();
     }
-
     public static void story() throws InterruptedException {
         player = new Player(9, 9);
         enemy = new Enemy(enemy.enemyX, enemy.enemyY, enemy.enemyX2, enemy.enemyY2);
@@ -380,7 +378,7 @@ public class Array {
         if (player.InputX == traps.trapX && player.InputY == traps.trapY){
             System.out.println("\nYou hit a trap! You lose a heart!");
             player.health--;
-            healthcheck--;
+            
             
 //            lose = 0;
 //            lost();
@@ -390,7 +388,7 @@ public class Array {
         else if (player.InputX == traps.trapXone && player.InputY == traps.trapYone) {
             System.out.println("\nYou hit a trap! You lose a heart!");
             player.health--;
-            healthcheck--;
+            
 //            lose = 0;
 //            lost();
             traps.trapXone = 1;
@@ -399,7 +397,7 @@ public class Array {
         else if (player.InputX == traps.trapXtwo && player.InputY == traps.trapYtwo) {
             System.out.println("\nYou hit a trap! You lose a heart!");
             player.health--;
-            healthcheck--;
+            
 //            lose = 0;
 //            lost();
             traps.trapXtwo = 1;
@@ -408,7 +406,7 @@ public class Array {
         else if (player.InputX == traps.trapXthree && player.InputY == traps.trapYthree) {
             System.out.println("\nYou hit a trap! You lose a heart!");
             player.health--;
-            healthcheck--;
+            
 //            lose = 0;
 //            lost();
             traps.trapXthree = 1;
@@ -417,7 +415,7 @@ public class Array {
         else if (player.InputX == traps.trapXfour && player.InputY == traps.trapYfour) {
             System.out.println("\nYou hit a trap! You lose a heart!");
             player.health--;
-            healthcheck--;
+            
 //            lose = 0;
 //            lost();
             traps.trapXfour = 1;
@@ -426,7 +424,7 @@ public class Array {
         else if (player.InputX == traps.trapXfive && player.InputY == traps.trapYfive) {
             System.out.println("\nYou hit a trap! You lose a heart!");
             player.health--;
-            healthcheck--;
+            
 //            lose = 0;
 //            lost();
             traps.trapXfive = 1;
@@ -435,7 +433,7 @@ public class Array {
         else if (player.InputX == traps.trapXsix && player.InputY == traps.trapYsix) {
             System.out.println("\nYou hit a trap! You lose a heart");
             player.health--;
-            healthcheck--;
+            
 //            lose = 0;
 //            lost();
             traps.trapXsix = 1;
@@ -444,7 +442,7 @@ public class Array {
         else if (player.InputX == traps.trapXseven && player.InputY == traps.trapYseven) {
             System.out.println("\nYou hit a trap! You lose a heart");
             player.health--;
-            healthcheck--;
+            
 //            lose = 0;
 //            lost();
             traps.trapXseven = 1;
@@ -453,7 +451,7 @@ public class Array {
         else if (player.InputX == traps.trapXeight && player.InputY == traps.trapYeight) {
             System.out.println("\nYou hit a trap! You lose a heart!");
             player.health--;
-            healthcheck--;
+            
 //            lose = 0;
 //            lost();
             traps.trapXeight = 1;
@@ -462,7 +460,7 @@ public class Array {
         else if (player.InputX == traps.trapXnine && player.InputY == traps.trapYnine) {
             System.out.println("\nYou hit a trap! You lose a heart!");
             player.health--;
-            healthcheck--;
+            
 //            lose = 0;
 //            lost();
             traps.trapXnine = 1;
@@ -471,7 +469,7 @@ public class Array {
 
         if (player.InputX == enemy.enemyX && player.InputY == enemy.enemyY) {
             player.health--;
-            healthcheck--;
+            
             enemy.enemyX = 2;
             enemy.enemyY = 2;
             enemy.e1 = false;
@@ -481,7 +479,7 @@ public class Array {
         }
           if (player.InputX == enemy.enemyX2 && player.InputY == enemy.enemyY2) {
             player.health--;
-            healthcheck--;
+            
             enemy.enemyX2 = 2;
             enemy.enemyY2 = 1;
             enemy.e2 = false;
@@ -590,7 +588,6 @@ public class Array {
         Scanner scan = new Scanner(System.in);
         player.score = 0;
         scorebool = true;
-        player.health = healthcheck;
         if (lose < 1) {
             System.out.println("");
             cointotal -= 0;
