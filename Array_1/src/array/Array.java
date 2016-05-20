@@ -50,16 +50,22 @@ public class Array {
     public static void game() throws InterruptedException {
         Scanner input = new Scanner(System.in);
         System.out.println("To buy powerups, collect coins in game! Your coin total is currently: " + cointotal + ".");
-        System.out.println("Type /shop to buy a powerup or /play to start the game!");
+        System.out.println("Type \"shop\" to buy a powerup or \"play\" to start the game!");
         start = input.nextLine();
-        if (start.equalsIgnoreCase("/shop")) {
+        if (start.equalsIgnoreCase("shop")) {
             shop();
         }
-        X();
-        Y();
-        enemy();
-        map();
-        Movement();
+        else if(start.equalsIgnoreCase("play")) {
+            X();
+            Y();
+            enemy();
+            map();
+            Movement();
+        }
+        else {
+            System.out.println("\nInput not parsed.\n");
+            game();
+        }
     }
 
     public static void map() throws InterruptedException {
@@ -519,26 +525,14 @@ public class Array {
         if (num < 1) {
             System.out.println("\nWelcome to the shop! Feel free to buy anything you need!");
             System.out.println("[Items]:");
-            System.out.print("[No Enemies]: 300 Coins");
-            if(nebuy == false) {
-                System.out.println("");
-            }
-            if(nebuy == true) {
-                System.out.println(" [Purchased]");
-            }
-            System.out.print("[Double Jump]: 500 Coins");
-            if(djbuy == false) {
-                System.out.println("");
-            }
-             if(djbuy == true) {
-                System.out.println(" [Purchased]");
-            }
-            System.out.println("[One Heart(Five Max)]: 200 coins");
+            System.out.println("[No Enemies]: 300 Coins");
+            System.out.println("[Double Jump]: 500 Coins");
+            System.out.println("[One Heart]: 200 coins");
         }
         System.out.println("Would you like to buy something?");
         buy = buys.nextLine().toLowerCase();
         if (buy.contains("y")) {
-            System.out.println("What would you like to buy?");
+            System.out.println("\nWhat would you like to buy?");
             System.out.println("[Item Names]: ");
             System.out.print("No Enemies = NE");
             if(nebuy == false) {
@@ -554,10 +548,21 @@ public class Array {
             if(djbuy == true) {
                 System.out.println(" [Purchased]");
             }
-            System.out.println("One Heart = HE");
+            System.out.print("One Heart = HE");
+            if(player.health < 5) {
+                System.out.println("");
+            }
+            if(player.health == 5) {
+                System.out.println(" [Max Health]");
+            }
             buy = buys.nextLine().toUpperCase();
             if (buy.contains("HE")) {
                 if (cointotal >= 200) {
+                    if(player.health == 5) {
+                        System.out.println("\nYou have maximum health!");
+                        shop();
+                    }
+                    
                     System.out.println("You have been charged 200 coins! Enjoy!");
                     cointotal -= 200;
                     player.health += 1;
@@ -565,28 +570,36 @@ public class Array {
                     game();
                 } else {
                     num = -1;
-                    System.out.println("You cannot purchase this item! Returning to game!");
+                    System.out.println("\nYou cannot purchase this item! Returning to game!\n");
                     game();
                 }
             } else if (buy.contains("NE")) {
-                if (cointotal >= 0) {
+                if (cointotal >= 300) {
+                    if(nebuy == true) {
+                        System.out.println("\nAlready Purchased.");
+                        shop();
+                    }
                     nebuy = true;
                     System.out.println("You have been charged 300 coins! Enjoy!");
-                    cointotal -= 00;
+                    cointotal -= 300;
                     nebuy = true;
                     noenemy = true;
                     num = -1;
                     game();
                 } else {
                     num = -1;
-                    System.out.println("You cannot purchase this item! Returning to game!");
+                    System.out.println("\nYou cannot purchase this item! Returning to game!\n");
                     game();
                 }
             } else if (buy.contains("DJ")) {
                 if (cointotal >= 00) {
+                    if(djbuy == true) {
+                        System.out.println("\nAlready Purchased.");
+                        shop();
+                    }
                     System.out.println("You have been charged 500 coins! Enjoy!");
                     djbuy = true;
-                    cointotal -= 00;
+                    cointotal -= 500;
                     djump = true;
                     num = -1;
                     game();
@@ -609,9 +622,10 @@ public class Array {
         Scanner scan = new Scanner(System.in);
         player.score = 0;
         scorebool = true;
-        if (lose < 1) {
+        if (player.health == 0) {
             System.out.println("");
-            cointotal -= 0;
+            cointotal -= cointotal;
+            player.health = 5;
             System.out.println("db    db  .d88b.  db    db    db       .d88b.  .d8888. d88888b \n"
                     + "`8b  d8' .8P  Y8. 88    88    88      .8P  Y8. 88'  YP 88'     \n"
                     + " `8bd8'  88    88 88    88    88      88    88 `8bo.   88ooooo \n"
