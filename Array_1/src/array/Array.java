@@ -32,6 +32,7 @@ public class Array {
 
     public static Player player;
     public static Enemy enemy;
+    public static Enemy2 enemy2;
     public static Traps traps;
     public static Treasure treasure;
 
@@ -41,7 +42,8 @@ public class Array {
 
     public static void story() throws InterruptedException {
         player = new Player(9, 9);
-        enemy = new Enemy(enemy.enemyX, enemy.enemyY, enemy.enemyX2, enemy.enemyY2);
+        enemy2 = new Enemy2(enemy2.enemyX2, enemy2.enemyY2);
+        enemy = new Enemy(enemy.enemyX, enemy.enemyY);
         traps = new Traps(traps.trapX, traps.trapY);
         treasure = new Treasure(treasure.treasureX, treasure.treasureY);
         game();
@@ -85,7 +87,7 @@ public class Array {
         map[treasure.treasureY2 - 1][treasure.treasureX2 - 1] = 'T';
         map[treasure.treasureY3 - 1][treasure.treasureX3 - 1] = 'T';
         map[enemy.enemyY - 1][enemy.enemyX - 2] = 'E';
-        map[enemy.enemyY2 - 1][enemy.enemyX2 - 2] = 'E';
+        map[enemy2.enemyY2 - 1][enemy2.enemyX2 - 2] = 'E';
         map[coinY - 1][coinX - 1] = '◎';
         for (int i = 0; i <= map[0].length - 1; i++) {
             for (int j = 0; j <= map[1].length - 1; j++) {
@@ -100,7 +102,7 @@ public class Array {
                         System.out.print("▐");
                     } else if (j == 19) {
                         System.out.print("▐");
-                    } else if (map[i][j] != '@' && map[i][j] != '*' && map[i][j] != 'E' && map[i][j] != 'T' && map[i][j] != '◎') { //map[i][j] != 'x' 
+                    } else if (map[i][j] != '@' && map[i][j] != '*' && map[i][j] != 'E' && map[i][j] != 'T' && map[i][j] != '◎') { //map[i][j] != 'x'
                         System.out.print(" • ");
                     } else {
                         System.out.print(" " + map[i][j] + " ");
@@ -181,8 +183,8 @@ public class Array {
             if (enemy.enemyY > 1 && enemy.enemyY < 3) {
                 enemy.enemyY = 20;
             }
-            if (enemy.enemyY2 > 1 && enemy.enemyY2 < 3) {
-                enemy.enemyY2 = 20;
+            if (enemy2.enemyY2 > 1 && enemy2.enemyY2 < 3) {
+                enemy2.enemyY2 = 20;
             }
 
             if (djump == true && !player.move.contains("1")) {
@@ -197,8 +199,8 @@ public class Array {
             if (enemy.enemyY > 18 && enemy.enemyY < 20) {
                 enemy.enemyY = 2;
             }
-            if (enemy.enemyY2 > 18 && enemy.enemyY2 < 20) {
-                enemy.enemyY2 = 2;
+            if (enemy2.enemyY2 > 18 && enemy2.enemyY2 < 20) {
+                enemy2.enemyY2 = 2;
             }
             if (djump == true && !player.move.contains("1")) {
                 player.InputY++;
@@ -213,8 +215,8 @@ public class Array {
             if (enemy.enemyX > 18 && enemy.enemyX < 20) {
                 enemy.enemyX = 2;
             }
-            if (enemy.enemyX2 > 18 && enemy.enemyX2 < 20) {
-                enemy.enemyX2 = 2;
+            if (enemy2.enemyX2 > 18 && enemy2.enemyX2 < 20) {
+                enemy2.enemyX2 = 2;
             }
             if (djump == true && !player.move.contains("1")) {
                 player.InputX++;
@@ -228,8 +230,8 @@ public class Array {
             if (enemy.enemyX > 1 && enemy.enemyX < 3) {
                 enemy.enemyX = 19;
             }
-            if (enemy.enemyX2 > 1 && enemy.enemyX2 < 3) {
-                enemy.enemyX2 = 19;
+            if (enemy2.enemyX2 > 1 && enemy2.enemyX2 < 3) {
+                enemy2.enemyX2 = 19;
             }
             if (djump == true && !player.move.contains("1")) {
                 player.InputX--;
@@ -245,7 +247,7 @@ public class Array {
 
     public static void enemy() throws InterruptedException {
         System.out.println("Your location is: " + (player.InputX) + ", " + (player.InputY) + ".");
-        //System.out.println("The first enemy's location is: " + (enemy.enemyX) + ", " + (enemy.enemyY) + " and second's is: " + (enemy.enemyX2) + ", " + (enemy.enemyY2) + ".");
+        //System.out.println("The first enemy's location is: " + (enemy.enemyX) + ", " + (enemy.enemyY) + " and second's is: " + (enemy2.enemyX2) + ", " + (enemy2.enemyY2) + ".");
 
         if (player.score == 3) {
             scorebool = true;
@@ -254,19 +256,19 @@ public class Array {
         if (noenemy == true) {
             enemyX = 2;
             enemyY = 2;
-            enemyX2 = 2;
-            enemyY2 = 2;
-            e2 = false;
+            enemy2.enemyX2 = 2;
+            enemy2.enemyY2 = 2;
+            enemy2.e2 = false;
             e1 = false;
         }
 
         if (scorebool == true && noenemy == false) {
             enemyX = rand.nextInt(max - min + 1) + min;
             enemyY = rand.nextInt(max - min + 1) + min;
-            enemyX2 = rand.nextInt(max - min + 1) + min;
-            enemyY2 = rand.nextInt(max - min + 1) + min;
+            enemy2.enemyX2 = rand.nextInt(max - min + 1) + min;
+            enemy2.enemyY2 = rand.nextInt(max - min + 1) + min;
             e1 = true;
-            e2 = true;
+            enemy2.e2 = true;
         }
         if (scorebool == true) {
             treasureX = rand.nextInt(max - min + 1) + min;
@@ -468,28 +470,28 @@ public class Array {
             //lose = 0;
             //lost();
         }
-        if (player.InputX == enemy.enemyX2 && player.InputY == enemy.enemyY2) {
+        if (player.InputX == enemy2.enemyX2 && player.InputY == enemy2.enemyY2) {
             player.health--;
 
-            enemy.enemyX2 = 2;
-            enemy.enemyY2 = 1;
-            enemy.e2 = false;
+            enemy2.enemyX2 = 2;
+            enemy2.enemyY2 = 1;
+            enemy2.e2 = false;
             System.out.println("\nYou got hit by an enemy!");
             //lose = 0;
             //lost();
         }
 
-        if (player.InputX > enemy.enemyX2 && enemy.e2 == true) {
-            enemy.enemyX2++;
+        if (player.InputX > enemy2.enemyX2 && enemy2.e2 == true) {
+            enemy2.enemyX2++;
         }
-        if (player.InputY > enemy.enemyX2 && enemy.e2 == true) {
-            enemy.enemyY2++;
+        if (player.InputY > enemy2.enemyX2 && enemy2.e2 == true) {
+            enemy2.enemyY2++;
         }
-        if (player.InputX < enemy.enemyX2 && enemy.e2 == true) {
-            enemy.enemyX2--;
+        if (player.InputX < enemy2.enemyX2 && enemy2.e2 == true) {
+            enemy2.enemyX2--;
         }
-        if (player.InputY < enemy.enemyY2 && enemy.e2 == true) {
-            enemy.enemyY2--;
+        if (player.InputY < enemy2.enemyY2 && enemy2.e2 == true) {
+            enemy2.enemyY2--;
         }
 
         if (player.InputX > enemy.enemyX && enemy.e1 == true) {
@@ -522,10 +524,24 @@ public class Array {
     public static void shop() throws InterruptedException {
         shopcount = 1;
         Scanner buys = new Scanner(System.in);
+        player.wincount = player.wincount -= player.win;
         if (num < 1) {
             System.out.println("\nWelcome to the shop! Feel free to buy anything you need!");
             System.out.println("[Items]:");
-            System.out.println("[No Enemies]: 300 Coins");
+            System.out.print("[No Enemies]: 300 Coins");
+            if(nebuy == true) {
+                System.out.println(" [" + player.wincount + " games left!]");
+                noenemy = true;
+            if(player.win >= 2) {
+                player.win = 0;
+                nebuy = false;
+                noenemy = false;
+        }
+            }
+            if(nebuy == false) {
+                System.out.println(" [2 Games Only!]");
+                noenemy = false;
+            }
             System.out.println("[Double Jump]: 500 Coins");
             System.out.println("[One Heart]: 200 coins");
         }
@@ -562,7 +578,7 @@ public class Array {
                         System.out.println("\nYou have maximum health!");
                         shop();
                     }
-                    
+                   
                     System.out.println("You have been charged 200 coins! Enjoy!");
                     cointotal -= 200;
                     player.health += 1;
@@ -574,14 +590,14 @@ public class Array {
                     game();
                 }
             } else if (buy.contains("NE")) {
-                if (cointotal >= 300) {
+                if (cointotal >= 000) {
                     if(nebuy == true) {
                         System.out.println("\nAlready Purchased.");
                         shop();
                     }
                     nebuy = true;
                     System.out.println("You have been charged 300 coins! Enjoy!");
-                    cointotal -= 300;
+                    cointotal -= 000;
                     nebuy = true;
                     noenemy = true;
                     num = -1;
@@ -592,7 +608,7 @@ public class Array {
                     game();
                 }
             } else if (buy.contains("DJ")) {
-                if (cointotal >= 00) {
+                if (cointotal >= 500) {
                     if(djbuy == true) {
                         System.out.println("\nAlready Purchased.");
                         shop();
@@ -622,6 +638,11 @@ public class Array {
         Scanner scan = new Scanner(System.in);
         player.score = 0;
         scorebool = true;
+        player.win++;
+        if(player.win >= 2) {
+            player.win = 0;
+            nebuy = false;
+        }
         if (player.health == 0) {
             System.out.println("");
             cointotal -= cointotal;

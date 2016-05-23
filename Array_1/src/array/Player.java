@@ -8,6 +8,8 @@ public class Player {
     public static String totalhealth;
     public static int health = 5;
     public static int score;
+    public static int win = 0;
+    public static int wincount = 2;
     public static String health5 = "♥♥♥♥♥";
     public static String health4 = "♥♥♥♥";
     public static String health3 = "♥♥♥";
