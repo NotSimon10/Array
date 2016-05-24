@@ -52,6 +52,7 @@ public class Array {
     public static void game() throws InterruptedException {
         Scanner input = new Scanner(System.in);
         System.out.println("To buy powerups, collect coins in game! Your coin total is currently: " + cointotal + ".");
+<<<<<<< HEAD
         System.out.println("Type \"shop\" to buy a powerup, \"skins\"to buy a new player model or \"play\" to start the game!");
         start = input.nextLine();
         if (start.contains("sh")) {
@@ -61,6 +62,14 @@ public class Array {
             skin();
         }
         else if(start.contains("p")) {
+=======
+        System.out.println("Type \"shop\" to buy a powerup or \"play\" to start the game!");
+        start = input.nextLine();
+        if (start.equalsIgnoreCase("shop")) {
+            shop();
+        }
+        else if(start.equalsIgnoreCase("play")) {
+>>>>>>> 5187ef45c95d0d86bf18522ec62cbb78bab7262a
             X();
             Y();
             enemy();
@@ -593,14 +602,22 @@ public class Array {
                     game();
                 }
             } else if (buy.contains("NE")) {
+<<<<<<< HEAD
                 if (cointotal >= 300) {
+=======
+                if (cointotal >= 000) {
+>>>>>>> 5187ef45c95d0d86bf18522ec62cbb78bab7262a
                     if(nebuy == true) {
                         System.out.println("\nAlready Purchased.");
                         shop();
                     }
                     nebuy = true;
                     System.out.println("You have been charged 300 coins! Enjoy!");
+<<<<<<< HEAD
                     cointotal -= 300;
+=======
+                    cointotal -= 000;
+>>>>>>> 5187ef45c95d0d86bf18522ec62cbb78bab7262a
                     nebuy = true;
                     noenemy = true;
                     num = -1;

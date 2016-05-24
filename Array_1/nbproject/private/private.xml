@@ -3,8 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/home/NotSimon/Array/Array/Array/Array_1/src/array/Array.java</file>
             <file>file:/home/NotSimon/Array/Array/Array/Array_1/src/array/Player.java</file>
+=======
+            <file>file:/home/NotSimon/Array/Array_1/src/array/Enemy.java</file>
+            <file>file:/home/NotSimon/Array/Array_1/src/array/Enemy2.java</file>
+            <file>file:/home/NotSimon/Array/Array_1/src/array/Player.java</file>
+            <file>file:/home/NotSimon/Array/Array_1/src/array/Array.java</file>
+>>>>>>> 5187ef45c95d0d86bf18522ec62cbb78bab7262a
         </group>
     </open-files>
 </project-private>
