@@ -34,6 +34,16 @@ public class Array {
     //Skins Related
     public static String skins;
     public static int skincount;
+    public static int equip;
+    public static boolean SM = false;
+    public static boolean SU = false;
+    public static boolean HE = false;
+    public static boolean MZ = false;
+    public static boolean SQ = false;
+    public static boolean HR = false;
+    public static boolean CS = false;  
+    public static boolean SD = false;  
+    public static boolean OHM = false;  
     //Inventory Related
     public static final Random rand = new Random();
     public static int min = 2;
@@ -68,7 +78,7 @@ public class Array {
     public static void game() throws InterruptedException {
         Scanner input = new Scanner(System.in);
         System.out.println("To buy powerups, collect coins in game! Your coin total is currently: " + cointotal + ".");
-        System.out.println("Type \"shop\" to buy a powerup, \"skins\"to buy a new player model or \"play\" to start the game!");
+        System.out.println("Type \"shop\" to buy a powerup, \"skins\" to buy a new player model or \"play\" to start the game!");
         start = input.nextLine();
         if (start.contains("sh")) {
             shop();
@@ -93,13 +103,31 @@ public class Array {
             map[player.InputY - 1][player.InputX - 1] = '@';
         }
         else if(skincount == 1) {
-            map[player.InputY - 1][player.InputX - 1] = 'ツ';
+            map[player.InputY - 1][player.InputX - 1] = '♿';
         }
         else if(skincount == 2) {
             map[player.InputY - 1][player.InputX - 1] = '☭';
         }
         else if(skincount == 3) {
             map[player.InputY - 1][player.InputX - 1] = 'ღ';
+        }
+        else if(skincount == 4) {
+            map[player.InputY - 1][player.InputX - 1] = '₪';
+        }
+        else if(skincount == 5) {
+            map[player.InputY - 1][player.InputX - 1] = '▧';
+        }
+        else if(skincount == 6) {
+            map[player.InputY - 1][player.InputX - 1] = '❥';
+        }
+        else if(skincount == 7) {
+            map[player.InputY - 1][player.InputX - 1] = '♛';
+        }
+        else if(skincount == 8) {
+            map[player.InputY - 1][player.InputX - 1] = '☪';
+        }
+        else if(skincount == 9) {
+            map[player.InputY - 1][player.InputX - 1] = 'ʊ';
         }
         map[traps.trapY - 1][traps.trapX - 1] = '*';
         map[traps.trapYone - 1][traps.trapXone - 1] = '*';
@@ -129,8 +157,9 @@ public class Array {
                         System.out.print("▐");
                     } else if (j == 19) {
                         System.out.print("▐");
-                    } else if (map[i][j] != '@' && map[i][j] != '*' && map[i][j] != 'E' && map[i][j] != 'T' && map[i][j] != '◎' && map[i][j] != 'ツ' 
-                            && map[i][j] != '☭' && map[i][j] != 'ღ') { //map[i][j] != 'x'
+                    } else if (map[i][j] != '@' && map[i][j] != '*' && map[i][j] != 'E' && map[i][j] != 'T' && map[i][j] != '◎' && map[i][j] != '♿' 
+                            && map[i][j] != '☭' && map[i][j] != 'ღ' && map[i][j] != '₪' && map[i][j] != '▧' && map[i][j] != '❥' && map[i][j] != '♛'
+                            && map[i][j] != '☪' && map[i][j] != 'ʊ') { //map[i][j] != 'x'
                         System.out.print(WHITE + " • ");
                     } else {
                         System.out.print (CYAN + " " + map[i][j] + CYAN + " ");
@@ -143,8 +172,9 @@ public class Array {
                     System.out.println("▐");
                 } else if (j == 19) {
                     System.out.println("▐");
-                } else if (map[i][j] != '@' && map[i][j] != '*' && map[i][j] != 'E' && map[i][j] != 'T' && map[i][j] != '◎' && map[i][j] != 'ツ' 
-                        && map[i][j] != '☭' && map[i][j] != 'ღ') { //map[i][j] != 'x'
+                } else if (map[i][j] != '@' && map[i][j] != '*' && map[i][j] != 'E' && map[i][j] != 'T' && map[i][j] != '◎' && map[i][j] != '♿' 
+                        && map[i][j] != '☭' && map[i][j] != 'ღ' && map[i][j] != '₪' && map[i][j] != '₪' && map[i][j] != '❥' && map[i][j] != '♛'
+                        && map[i][j] != '☪' && map[i][j] != 'ʊ') { //map[i][j] != 'x'
                     System.out.println(" • ");
                 } else {
                     System.out.println(" " + map[i][j] + " ");
@@ -666,25 +696,112 @@ public class Array {
     public static void skin() throws InterruptedException {
         Scanner skin = new Scanner(System.in);
         System.out.println("\nWelcome to the player skin model shop! Here you can buy many different"
-                         + "skins to change the players look to your satisfaction! Enjoy.");
+                         + "\nskins to change the players look to your satisfaction! Enjoy.");
         System.out.println("\nPress [Enter] to buy!");
         skin.nextLine();
         System.out.println("[Items]:");
-        System.out.println("[50 Coins]: ツ");
+        System.out.println("[50 Coins]: ♿");
         System.out.println("[50 Coins]: ☭");
         System.out.println("[50 Coins]: ღ");
         System.out.println("[100 Coins]: ₪");
         System.out.println("[100 Coins]: ▧");       
         System.out.println("[100 Coins]: ❥");       
-        System.out.println("[200 Coins]: あ");       
-        System.out.println("[200 Coins]: ۞");       
+        System.out.println("[200 Coins]: ♛");       
+        System.out.println("[200 Coins]: ☪");       
         System.out.println("[200 Coins]: ʊ");
         System.out.println("\nWould you like to purchase a character??");
         choose = skin.nextLine().toUpperCase();
         if(choose.contains("Y")) {
-        System.out.println("[ツ]: SM");
-        System.out.println("[☭]: SU");
-        System.out.println("[ღ]: HE");
+      System.out.print("[ツ]: SM");
+        if(SM == false) {
+            System.out.println("");
+        }
+        if(SM == true && equip != 1) {
+            System.out.println(" [Equip]");
+        }
+        if(SM == true && equip == 1) {
+            System.out.println(" [Equipped]");
+        }
+      System.out.print("[☭]: SU");
+        if(SU == false) {
+            System.out.println("");
+        }
+        if(SU == true && equip != 2) {
+            System.out.println(" [Equip]");
+        }
+        if(SU == true && equip == 2) {
+            System.out.println(" [Equipped]");
+        }
+      System.out.print("[ღ]: HE");
+        if(HE == false) {
+            System.out.println("");
+        }
+        if(HE == true && equip != 3) {
+            System.out.println(" [Equip]");
+        }
+        if(HE == true && equip == 3) {
+            System.out.println(" [Equipped]");
+        }
+      System.out.print("[₪]: MZ");
+        if(MZ == false) {
+            System.out.println("");
+        }
+        if(MZ == true && equip != 4) {
+            System.out.println(" [Equip]");
+        }
+        if(MZ == true && equip == 4) {
+            System.out.println(" [Equipped]");
+        }
+      System.out.print("[▧]: SQ");
+        if(SQ == false) {
+            System.out.println("");
+        }
+        if(SQ == true && equip != 5) {
+            System.out.println(" [Equip]");
+        }
+        if(SQ == true && equip == 5) {
+            System.out.println(" [Equipped]");
+        }
+      System.out.print("[❥]: HR");
+        if(HR == false) {
+            System.out.println("");
+        }
+        if(HR == true && equip != 6) {
+            System.out.println(" [Equip]");
+        }
+        if(HR == true && equip == 6) {
+            System.out.println(" [Equipped]");
+        }
+      System.out.print("[あ]: CS");
+        if(CS == false) {
+            System.out.println("");
+        }
+        if(CS == true && equip != 7) {
+            System.out.println(" [Equip]");
+        }
+        if(CS == true && equip == 7) {
+            System.out.println(" [Equipped]");
+        }
+      System.out.print("[۞]: SD");
+        if(SD == false) {
+            System.out.println("");
+        }
+        if(SD == true && equip != 8) {
+            System.out.println(" [Equip]");
+        }
+        if(SD == true && equip == 8) {
+            System.out.println(" [Equipped]");
+        }
+      System.out.print("[ʊ]: OHM");
+        if(OHM == false) {
+            System.out.println("");
+        }
+        if(OHM == true && equip != 9) {
+            System.out.println(" [Equip]");
+        }
+        if(OHM == true && equip == 9) {
+            System.out.println(" [Equipped]");
+        }
         }
         else if(choose.contains("N")) {
             story();
@@ -692,30 +809,116 @@ public class Array {
         skins = skin.nextLine();
         int coin = 50 - cointotal;
         if(skins.contains("SM")) {
-            if(cointotal >= 50) {
+            if(cointotal >= 0 && equip != 1) {
                 skincount = 1;
-                cointotal -= 50;
+                equip = 1;
+                cointotal -= 0;
                 System.out.println("You have been charged 50 coins! Your balance is: " + cointotal + "!");
+                SM = true;
             } else {
                 System.out.println("You dont have enough currency for this item! You need " + coin + " more coins!\n");
                 game();
             }
         }
         else if(skins.contains("SU")) {
-            if(cointotal >= 50) {
+            if(cointotal >= 0 && equip != 2) {
                 skincount = 2;
-                cointotal -= 50;
+                equip = 2;
+                cointotal -= 0;
+                if(SU == false) {
                 System.out.println("You have been charged 50 coins! Your balance is: " + cointotal + "!");
+                }
+                SU = true;
             } else {
                 System.out.println("You dont have enough currency for this item! You need " + coin + " more coins!\n");
                 game();
             } 
         }
            else if(skins.contains("HE")) {
-            if(cointotal >= 50) {
+            if(cointotal >= 0 && equip != 3) {
                 skincount = 3;
-                cointotal -= 50;
+                equip = 3;
+                HE = true;
+                cointotal -= 0;
                 System.out.println("You have been charged 50 coins! Your balance is: " + cointotal + "!");
+            } else {
+                System.out.println("You dont have enough currency for this item! You need " + coin + " more coins!\n");
+                game();
+            }
+            
+        }
+           else if(skins.contains("MZ")) {
+            if(cointotal >= 0 && equip != 4) {
+                skincount = 4;
+                equip = 4;
+                MZ = true;
+                cointotal -= 0;
+                System.out.println("You have been charged 100 coins! Your balance is: " + cointotal + "!");
+            } else {
+                System.out.println("You dont have enough currency for this item! You need " + coin + " more coins!\n");
+                game();
+            }
+            
+        }
+           else if(skins.contains("SQ")) {
+            if(cointotal >= 0 && equip != 5) {
+                skincount = 5;
+                equip = 5;
+                SQ = true;
+                cointotal -= 0;
+                System.out.println("You have been charged 100 coins! Your balance is: " + cointotal + "!");
+            } else {
+                System.out.println("You dont have enough currency for this item! You need " + coin + " more coins!\n");
+                game();
+            }
+            
+        }
+           else if(skins.contains("HR")) {
+            if(cointotal >= 0 && equip != 6) {
+                skincount = 6;
+                equip = 6;
+                HR = true;
+                cointotal -= 0;
+                System.out.println("You have been charged 100 coins! Your balance is: " + cointotal + "!");
+            } else {
+                System.out.println("You dont have enough currency for this item! You need " + coin + " more coins!\n");
+                game();
+            }
+            
+        }
+           else if(skins.contains("CS")) {
+            if(cointotal >= 0 && equip != 7) {
+                skincount = 7;
+                equip = 7;
+                CS = true;
+                cointotal -= 0;
+                System.out.println("You have been charged 200 coins! Your balance is: " + cointotal + "!");
+            } else {
+                System.out.println("You dont have enough currency for this item! You need " + coin + " more coins!\n");
+                game();
+            }
+            
+        }
+           else if(skins.contains("SD")) {
+            if(cointotal >= 0 && equip != 8) {
+                skincount = 8;
+                equip = 8;
+                SD = true;
+                cointotal -= 0;
+                System.out.println("You have been charged 200 coins! Your balance is: " + cointotal + "!");
+            } else {
+                System.out.println("You dont have enough currency for this item! You need " + coin + " more coins!\n");
+                game();
+            }
+            
+        }
+           else if(skins.contains("OHM")) {
+            if(cointotal >= 0 && equip != 9) {
+                skincount = 9;
+                equip = 9;
+                OHM = true;
+                cointotal -= 0;
+                System.out.println("You have been charged 200 coins! Your balance is: " + cointotal + "!");
             } else {
                 System.out.println("You dont have enough currency for this item! You need " + coin + " more coins!\n");
                 game();
