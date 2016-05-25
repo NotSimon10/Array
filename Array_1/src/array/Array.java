@@ -19,6 +19,21 @@ public class Array {
     public static boolean djbuy = false;
     public static int num = -2;
     public static boolean scorebool = false;
+    
+    //color related
+    public static final String RESET = "\u001B[0m";
+    public static final String BLACK = "\u001B[30m";
+    public static final String RED = "\u001B[31m";
+    public static final String GREEN = "\u001B[32m";
+    public static final String YELLOW = "\u001B[33m";
+    public static final String BLUE = "\u001B[34m";
+    public static final String PURPLE = "\u001B[35m";
+    public static final String CYAN = "\u001B[36m";
+    public static final String WHITE = "\u001B[37m";
+
+    //Skins Related
+    public static String skins;
+    public static int skincount;
     //Inventory Related
     public static final Random rand = new Random();
     public static int min = 2;
@@ -41,6 +56,7 @@ public class Array {
     }
 
     public static void story() throws InterruptedException {
+        
         player = new Player(9, 9);
         enemy2 = new Enemy2(enemy2.enemyX2, enemy2.enemyY2);
         enemy = new Enemy(enemy.enemyX, enemy.enemyY);
@@ -52,7 +68,6 @@ public class Array {
     public static void game() throws InterruptedException {
         Scanner input = new Scanner(System.in);
         System.out.println("To buy powerups, collect coins in game! Your coin total is currently: " + cointotal + ".");
-<<<<<<< HEAD
         System.out.println("Type \"shop\" to buy a powerup, \"skins\"to buy a new player model or \"play\" to start the game!");
         start = input.nextLine();
         if (start.contains("sh")) {
@@ -62,29 +77,30 @@ public class Array {
             skin();
         }
         else if(start.contains("p")) {
-=======
-        System.out.println("Type \"shop\" to buy a powerup or \"play\" to start the game!");
-        start = input.nextLine();
-        if (start.equalsIgnoreCase("shop")) {
-            shop();
-        }
-        else if(start.equalsIgnoreCase("play")) {
->>>>>>> 5187ef45c95d0d86bf18522ec62cbb78bab7262a
             X();
             Y();
             enemy();
             map();
             Movement();
-        }
-        else {
-            System.out.println("\nInput not parsed.\n");
+        } else {
+            System.out.println("Input not parsed.");
             game();
         }
     }
-
     public static void map() throws InterruptedException {
         char[][] map = new char[20][20];
-        map[player.InputY - 1][player.InputX - 1] = '@'; //map[InputX-1][InputY-1] = 'x';
+        if(skincount == 0) {
+            map[player.InputY - 1][player.InputX - 1] = '@';
+        }
+        else if(skincount == 1) {
+            map[player.InputY - 1][player.InputX - 1] = 'ツ';
+        }
+        else if(skincount == 2) {
+            map[player.InputY - 1][player.InputX - 1] = '☭';
+        }
+        else if(skincount == 3) {
+            map[player.InputY - 1][player.InputX - 1] = 'ღ';
+        }
         map[traps.trapY - 1][traps.trapX - 1] = '*';
         map[traps.trapYone - 1][traps.trapXone - 1] = '*';
         map[traps.trapYtwo - 1][traps.trapXtwo - 1] = '*';
@@ -105,7 +121,6 @@ public class Array {
             for (int j = 0; j <= map[1].length - 1; j++) {
                 if (j < map[1].length - 1) {
                     if (i == 0) {
-
                         System.out.print("▬▬▬");
                     } else if (i == 19) {
 
@@ -114,10 +129,11 @@ public class Array {
                         System.out.print("▐");
                     } else if (j == 19) {
                         System.out.print("▐");
-                    } else if (map[i][j] != '@' && map[i][j] != '*' && map[i][j] != 'E' && map[i][j] != 'T' && map[i][j] != '◎') { //map[i][j] != 'x'
-                        System.out.print(" • ");
+                    } else if (map[i][j] != '@' && map[i][j] != '*' && map[i][j] != 'E' && map[i][j] != 'T' && map[i][j] != '◎' && map[i][j] != 'ツ' 
+                            && map[i][j] != '☭' && map[i][j] != 'ღ') { //map[i][j] != 'x'
+                        System.out.print(WHITE + " • ");
                     } else {
-                        System.out.print(" " + map[i][j] + " ");
+                        System.out.print (CYAN + " " + map[i][j] + CYAN + " ");
                     }
                 } else if (i == 0) {
                     System.out.println("");
@@ -127,7 +143,8 @@ public class Array {
                     System.out.println("▐");
                 } else if (j == 19) {
                     System.out.println("▐");
-                } else if (map[i][j] != '@' && map[i][j] != '*' && map[i][j] != 'E' && map[i][j] != 'T' && map[i][j] != '◎') { //map[i][j] != 'x'
+                } else if (map[i][j] != '@' && map[i][j] != '*' && map[i][j] != 'E' && map[i][j] != 'T' && map[i][j] != '◎' && map[i][j] != 'ツ' 
+                        && map[i][j] != '☭' && map[i][j] != 'ღ') { //map[i][j] != 'x'
                     System.out.println(" • ");
                 } else {
                     System.out.println(" " + map[i][j] + " ");
@@ -602,22 +619,14 @@ public class Array {
                     game();
                 }
             } else if (buy.contains("NE")) {
-<<<<<<< HEAD
                 if (cointotal >= 300) {
-=======
-                if (cointotal >= 000) {
->>>>>>> 5187ef45c95d0d86bf18522ec62cbb78bab7262a
                     if(nebuy == true) {
                         System.out.println("\nAlready Purchased.");
                         shop();
                     }
                     nebuy = true;
                     System.out.println("You have been charged 300 coins! Enjoy!");
-<<<<<<< HEAD
                     cointotal -= 300;
-=======
-                    cointotal -= 000;
->>>>>>> 5187ef45c95d0d86bf18522ec62cbb78bab7262a
                     nebuy = true;
                     noenemy = true;
                     num = -1;
@@ -627,7 +636,8 @@ public class Array {
                     System.out.println("\nYou cannot purchase this item! Returning to game!\n");
                     game();
                 }
-            } else if (buy.contains("DJ")) {
+            }
+              else if (buy.contains("DJ")) {
                 if (cointotal >= 500) {
                     if(djbuy == true) {
                         System.out.println("\nAlready Purchased.");
@@ -653,7 +663,6 @@ public class Array {
             game();
         }
     }
-    
     public static void skin() throws InterruptedException {
         Scanner skin = new Scanner(System.in);
         System.out.println("\nWelcome to the player skin model shop! Here you can buy many different"
@@ -680,6 +689,40 @@ public class Array {
         else if(choose.contains("N")) {
             story();
         }
+        skins = skin.nextLine();
+        int coin = 50 - cointotal;
+        if(skins.contains("SM")) {
+            if(cointotal >= 50) {
+                skincount = 1;
+                cointotal -= 50;
+                System.out.println("You have been charged 50 coins! Your balance is: " + cointotal + "!");
+            } else {
+                System.out.println("You dont have enough currency for this item! You need " + coin + " more coins!\n");
+                game();
+            }
+        }
+        else if(skins.contains("SU")) {
+            if(cointotal >= 50) {
+                skincount = 2;
+                cointotal -= 50;
+                System.out.println("You have been charged 50 coins! Your balance is: " + cointotal + "!");
+            } else {
+                System.out.println("You dont have enough currency for this item! You need " + coin + " more coins!\n");
+                game();
+            } 
+        }
+           else if(skins.contains("HE")) {
+            if(cointotal >= 50) {
+                skincount = 3;
+                cointotal -= 50;
+                System.out.println("You have been charged 50 coins! Your balance is: " + cointotal + "!");
+            } else {
+                System.out.println("You dont have enough currency for this item! You need " + coin + " more coins!\n");
+                game();
+            }
+            
+        }
+        game();
     }
 
     public static void lost() throws InterruptedException {
@@ -695,6 +738,8 @@ public class Array {
             System.out.println("");
             cointotal -= cointotal;
             player.health = 5;
+            nebuy = false;
+            skincount = 0;
             System.out.println("db    db  .d88b.  db    db    db       .d88b.  .d8888. d88888b \n"
                     + "`8b  d8' .8P  Y8. 88    88    88      .8P  Y8. 88'  YP 88'     \n"
                     + " `8bd8'  88    88 88    88    88      88    88 `8bo.   88ooooo \n"
